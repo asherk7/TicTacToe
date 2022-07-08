@@ -8,7 +8,7 @@ def intro():
 
 def player_turns(player_info):
     board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-    winner = [False, '']
+    winner = [False, '', '']
     printboard(board)
     while winner[0] == False:
         for name, symbol in player_info:
@@ -26,7 +26,10 @@ def player_turns(player_info):
                     print('Invalid input, enter a digit from 1-9: ')
             if winner[0] == True:
                         break
-    print(f'congratulations for winning, {winner[1]}')
+    if winner[2] == 'Win':
+        print(f'congratulations for winning, {winner[1]}')
+    elif winner[2] == 'Tie':
+        print(f'It was a draw!')
     exit_restart(player_info)
 
 def printboard(board):
@@ -54,34 +57,34 @@ def check_win(board, symbol, name):
     board_word = ''.join(board)
     if symbol == 'O':
         if board_word[:3] == 'OOO' or board_word[3:6] == 'OOO' or board_word[6:] == 'OOO':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[0] == 'O' and board_word[4] == 'O' and board_word[8] == 'O':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[2] == 'O' and board_word[4] == 'O' and board_word[6] == 'O':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[0] == 'O' and board_word[3] == 'O' and board_word[6] == 'O':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[1] == 'O' and board_word[4] == 'O' and board_word[7] == 'O':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[2] == 'O' and board_word[5] == 'O' and board_word[8] == 'O':
-            return [True, name]
-        else:
-            return [False, '']
+            return [True, name, 'Win']
     elif symbol == 'X':
         if board_word[:3] == 'XXX' or board_word[3:6] == 'XXX' or board_word[6:] == 'XXX':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[0] == 'X' and board_word[4] == 'X' and board_word[8] == 'X':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[2] == 'X' and board_word[4] == 'X' and board_word[6] == 'X':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[0] == 'X' and board_word[3] == 'X' and board_word[6] == 'X':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[1] == 'X' and board_word[4] == 'X' and board_word[7] == 'X':
-            return [True, name]
+            return [True, name, 'Win']
         elif board_word[2] == 'X' and board_word[5] == 'X' and board_word[8] == 'X':
-            return [True, name]
-        else:
-            return [False, '']
+            return [True, name, 'Win']
+    if board_word.isalpha():
+        return [True, '', 'Tie']
+    else:
+        return [False, '', '']
 
 def exit_restart(info):
     while True:
